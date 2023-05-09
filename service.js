@@ -64,9 +64,12 @@ MDS.init(function (msg) {
                 }
 
 
-                
-                else if (messagetype == "ENDDATE_RESPONSE") {
-                    //navigate user to countdown page
+                else if (messagetype == "EXPIRY_DATE") {
+                    //replace user message with the expiry date and permanent maxima address
+                    var expiryDate = json.data.expiry_date;
+                    var permanentAddress = json.data.permanent_address;
+
+                    document.getElementById("js-main").innerHTML = `Your MLS will expire on ${expiryDate}. Your permanent address is ${permanentAddress}.`;
                 } else {
                     MDS.log("INVALID message type in dmax server: " + messagetype);
                 }

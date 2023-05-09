@@ -25,7 +25,7 @@ function onSubmit(amount) {
         sendP2PIdentityRequest(amount, address, function (response) {
 
             //remove the form from the UI and replace with a message
-            document.getElementById("js-form-container").innerHTML = "Your request has been sent to the MLS server. Please wait for confirmation.";
+            document.getElementById("js-main").innerHTML = "Your request has been sent to the MLS server. Please wait for confirmation.";
         });
     });
 }
