@@ -23,7 +23,7 @@ function onSubmit(amount) {
     getContactAddress(function (address) {
 
         //create p2pidentity request
-        sendMaximaMessage({ "type": "P2P_REQUEST", "data": { "amount": amount, "contact": contact } }, SERVER_ADDRESS, function (msg) {
+        sendMaximaMessage({ "type": "P2P_REQUEST", "data": { "amount": amount, "contact": address  } }, SERVER_ADDRESS, function (msg) {
             MDS.log("Sent P2P request to " + SERVER_ADDRESS);
 
             //remove the form from the UI and replace with a message
