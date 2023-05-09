@@ -15,6 +15,16 @@
 
     <h2>dmax server</h2>
     <p>Current Minima Block Height: <span id="block-height"></span></p>
+    <!-- create a form with one number input field and a submit button and the submit 
+        button triggers a onSubmit function that calls another function and passes the 
+        number input field value to the dmax function -->
+    <form action="dmax.php" method="post">
+        <label for="number">Number:</label>
+        <input type="number" id="number" name="number" min="1" max="1000000000">
+        <input type="submit" value="Submit">
+    </form>
+
+
 
 </body>
 
