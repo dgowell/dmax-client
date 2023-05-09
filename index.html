@@ -11,16 +11,33 @@
 </head>
 
 <body>
-    <h1>dmax</h1>
+    <h1>dmax client</h1>
     <div id="js-main">
         <!-- form with number input field and on submit calls a onSubmit function and passes in the value of the input field -->
-        <form onsubmit="onSubmit(document.getElementById('amount').value)">
+        <form action="" id="amount-form">
             <input type="number" id="amount" value="1" min="1" max="100" />
             <input type="submit" value="Submit" />
         </form>
     </div>
-
+    <script type="text/javascript">
+        //start MDS
+        MDS.init(function () {
+            //on MDS ready
+            console.log("MDS ready");
+        });
+    </script>
     <script type="text/javascript" src="dmax.js"></script>
+    <script type="text/javascript">
+        var form = document.getElementById("amount-form");
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+            var amount = document.getElementById("amount").value;
+            console.log("amount: " + amount);
+
+            //call onsubmit with the result of the input field
+            onSubmit(amount);
+        });
+    </script>
 </body>
 
 </html>
