@@ -34,20 +34,37 @@ MDS.init(function (msg) {
                 //What type is this..
                 var type = json.type;
 
+
+
                 if (type == "P2P_RESPONSE") {
                     //create two variables for the amount and the p2pidentity
                     var amount = json.data.amount;
-                    var p2pidentity = json.data.p2pidentity;
+                    var p2pIdentity = json.data.p2pidentity;
 
                     //set the static MLS
-                    //maxextra action:staticmls host: <p2pidentity> (Mx...@34.190.784.3:9001)
-                    //send money
-                    //send amount of money from form to the max wallet (hard coded address)
-                    //coinID is retiurned
-                    //send via maxima coinID
-                    //send(‘paymentConfirmation’, {coinID, clientPK})
+                    setStaticMLS(p2pIdentity, function (resp) {
+                        MDS.log("Set static MLS");
+
+                        //send amount of money to the server wallet
+                        sendMinima(amount, SERVER_WALLET, function (coinId) {
+                            MDS.log("Sent Minima");
+                            //coinID is returned
+
+                            //get the client public key
+                            getPublicKey(function (clientPK) {
+                                MDS.log("Got public key");
+
+                                //send via maxima coinID, clientPK
+                                sendMaximaMessage({ "type": "PAY_CONFIRM", "data": { "status": "OK", "coin_id": coinId, "client_pk": clientPK } }, SERVER_ADDRESS, function (msg) {
+                                    MDS.log("Sent response to " + SERVER_ADDRESS);
+                                });
+                            });
+                        });
+                    });
                 }
 
+
+                
                 else if (messagetype == "ENDDATE_RESPONSE") {
                     //navigate user to countdown page
                 } else {

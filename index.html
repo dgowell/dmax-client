@@ -11,21 +11,16 @@
 </head>
 
 <body>
-    <style></style>
+    <h1>dmax</h1>
+    <div id="js-form-container">
+        <!-- form with number input field and on submit calls a onSubmit function and passes in the value of the input field -->
+        <form onsubmit="onSubmit(document.getElementById('amount').value)">
+            <input type="number" id="amount" value="1" min="1" max="100" />
+            <input type="submit" value="Submit" />
+        </form>
+    </div>
 
-    <h2>dmax server</h2>
-    <p>Current Minima Block Height: <span id="block-height"></span></p>
-    <!-- create a form with one number input field and a submit button and the submit 
-        button triggers a onSubmit function that calls another function and passes the 
-        number input field value to the dmax function -->
-    <form action="dmax.php" method="post">
-        <label for="number">Number:</label>
-        <input type="number" id="number" name="number" min="1" max="1000000000">
-        <input type="submit" value="Submit">
-    </form>
-
-
-
+    <script type="text/javascript" src="dmax.js"></script>
 </body>
 
 </html>
