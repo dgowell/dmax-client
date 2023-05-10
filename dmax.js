@@ -120,8 +120,8 @@ function sendMinima(amount, address, callback) {
         MDS.log(`sendMinima function response: ${JSON.stringify(msg)}`);
         if (callback) {
             //return the coinid
-            MDS.log(`coindid returned: ${JSON.stringify(msg.response.mmrproofs[0].coin.coinid)}`);
-            callback(msg.response.mmrproofs[0].coin.coinid);
+            MDS.log(`coindid returned: ${JSON.stringify(msg.response.body.txn.outputs[0].coinid)}`);
+            callback(msg.response.body.txn.outputs[0].coinid);
         }
     });
 }
