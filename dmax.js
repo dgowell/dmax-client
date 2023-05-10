@@ -117,9 +117,11 @@ function getPublicKey(callback) {
 function sendMinima(amount, address, callback) {
     var maxcmd = "  send amount:" + amount + " address:" + address;
     MDS.cmd(maxcmd, function (msg) {
-        MDS.log(JSON.stringify(msg));
+        MDS.log(`sendMinima function response: ${JSON.stringify(msg)}`);
         if (callback) {
-            callback(msg);
+            //return the coinid
+            MDS.log(`coindid returned: ${JSON.stringify(msg.response.mmrproofs[0].coin.coinid)}`);
+            callback(msg.response.mmrproofs[0].coin.coinid);
         }
     });
 }
