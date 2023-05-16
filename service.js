@@ -8,7 +8,7 @@
 MDS.load("dmax.js");
 
 //Are we logging data
-var logs = false;
+var logs = true;
 
 //Main message handler..
 MDS.init(function (msg) {
@@ -46,7 +46,13 @@ MDS.init(function (msg) {
                         MDS.log("Set static MLS");
 
                         //send amount of money to the server wallet
-                        sendMinima(amount, SERVER_WALLET, function (coinId) {
+                        sendMinima(amount, SERVER_WALLET, function (coinId, error) {
+                            if (error) {
+                                MDS.log("Error sending Minima: " + error);
+                                //update frontend document with error
+
+                                return;
+                            }
                             MDS.log("Sent Minima");
                             //coinID is returned
 
@@ -55,7 +61,7 @@ MDS.init(function (msg) {
                                 MDS.log("Got public key");
 
                                 //send via maxima coinID, clientPK
-                                sendMaximaMessage({ "type": "PAY_CONFIRM", "data": { "status": "OK", "coin_id": coinId, "client_pk": clientPK } }, SERVER_ADDRESS, function (msg) {
+                                sendMaximaMessage({ "type": "PAY_CONFIRM", "data": { "status": "OK", "coin_id": coinId, "client_pk": clientPK, "amount": amount } }, SERVER_ADDRESS, function (msg) {
                                     MDS.log("Sent response to " + SERVER_ADDRESS);
                                 });
                             });
