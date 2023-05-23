@@ -44,7 +44,8 @@ function onSubmit(amount) {
 * @param {*} callback
 */
 function setStaticMLS(p2pidentity, callback) {
-    var maxcmd = `maxextra action:stats host:${p2pidentity}`;
+    MDS.log("Setting static MLS to " + p2pidentity);
+    var maxcmd = `maxextra action:staticmls host:${p2pidentity}`;
     MDS.cmd(maxcmd, function (msg) {
         MDS.log(JSON.stringify(msg));
         if (callback) {
@@ -61,8 +62,9 @@ function setStaticMLS(p2pidentity, callback) {
 function getContactAddress(callback) {
     var maxcmd = "maxima";
     MDS.cmd(maxcmd, function (msg) {
-        MDS.log(JSON.stringify(msg));
+        MDS.log(`Get Contact Address: ${JSON.stringify(msg)}`);
         if (callback) {
+            MDS.log(`Contact Address: ${msg.response.contact}`); 
             callback(msg.response.contact);
         }
     });
@@ -74,7 +76,9 @@ function getContactAddress(callback) {
  * @param {*} callback
  */
 function sendMaximaMessage(message, address, callback) {
+    MDS.log("Sending message to " + address);
     var maxcmd = "maxima action:send poll:true to:" + address + " application:dmax data:" + JSON.stringify(message);
+    MDS.log(maxcmd);
     MDS.cmd(maxcmd, function (msg) {
         MDS.log(JSON.stringify(msg));
         if (callback) {

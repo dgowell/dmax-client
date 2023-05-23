@@ -37,6 +37,7 @@ MDS.init(function (msg) {
 
 
                 if (type == "P2P_RESPONSE") {
+                    MDS.log("P2P_RESPONSE received:" + JSON.stringify(json));
                     //create two variables for the amount and the p2pidentity
                     var amount = json.data.amount;
                     var p2pIdentity = json.data.p2pidentity;
@@ -70,7 +71,7 @@ MDS.init(function (msg) {
                 }
 
 
-                else if (messagetype == "EXPIRY_DATE") {
+                else if (type == "EXPIRY_DATE") {
                     //replace user message with the expiry date and permanent maxima address
                     var expiryDate = json.data.expiry_date;
                     var permanentAddress = json.data.permanent_address;
